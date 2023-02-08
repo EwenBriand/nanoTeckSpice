@@ -18,6 +18,7 @@
 
 nts::Input::Input(std::string name)
 {
+    _type = nts::Type::input;
     _pins[0] = new nts::PIN();
     _pins[0]->setType(nts::Type::input);
     _pins[0]->setName(name);
@@ -28,6 +29,7 @@ nts::Input::~Input()
     for (size_t it = 0; it < _pins.size(); it++)
         if (_pins[it]) {
             delete _pins[it];
+            _pins[it] = nullptr;
         }
 }
 
@@ -36,6 +38,7 @@ void nts::Input::setLink(
 {
     if (pin > _pins.size() || otherPin > other.getList().size())
         return;
+    other.setLink(otherPin, *this, pin);
     return;
 }
 

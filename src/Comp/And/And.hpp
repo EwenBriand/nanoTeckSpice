@@ -17,6 +17,7 @@ namespace nts
     class And : virtual public nts::IComponent {
       protected:
         std::unordered_map<int, nts::PIN *> _pins;
+        std::vector<int> _deleting;
 
       public:
         And();

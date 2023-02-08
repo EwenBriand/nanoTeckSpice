@@ -18,22 +18,23 @@
 
 nts::Or::Or()
 {
+    _type = nts::Type::TOr;
     _pins[0] = new nts::PIN();
     _pins[1] = new nts::PIN();
     _pins[2] = new nts::PIN();
-    _pins[0]->setType(nts::Type::input);
-    _pins[1]->setType(nts::Type::input);
-    _pins[2]->setType(nts::Type::output);
     _pins[2]->setFunc(&nts::PIN::Orop);
     _pins[2]->setLink1(_pins[0]);
     _pins[2]->setLink2(_pins[1]);
+    _deleting.push_back(0);
+    _deleting.push_back(1);
+    _deleting.push_back(2);
 }
 
 nts::Or::~Or()
 {
-    // for (size_t it = 0; it < _pins.size(); it++)
-    //     if (_pins[it])
-    //         delete _pins[it];
+    for (const auto &key : _deleting)
+        if (key != -1 && _pins[key])
+            delete _pins[key];
 }
 
 void nts::Or::setLink(
@@ -44,7 +45,12 @@ void nts::Or::setLink(
     // otherPin == la position du pin dans other
     if (pin > _pins.size() || otherPin > other.getList().size())
         return;
-    _pins[pin] = other.getList()[otherPin];
+    if (_pins[pin]->getType() == nts::New) {
+        delete _pins[pin];
+        _deleting[pin] = -1;
+        _pins[pin] = other.getList()[otherPin];
+    } else
+        other.setLink(otherPin, *this, pin);
 }
 
 void nts::Or::simulate(std::size_t ticks)

@@ -7,7 +7,7 @@
 
 #include "PIN.hpp"
 
-nts::PIN::PIN() : _state(nts::Undefined), _name("")
+nts::PIN::PIN() : _state(nts::Undefined), _name(""), _type(nts::New)
 {
     _link1 = nullptr;
     _link2 = nullptr;
@@ -62,9 +62,10 @@ nts::Type nts::PIN::getType() const
 
 void nts::PIN::compute()
 {
-    if (!_link1)
+    if (_link1 == nullptr)
         return;
-
+    if (_link2 == nullptr)
+        return setState((this->*_func)(_link1->_state, nts::Undefined));
     setState((this->*_func)(_link1->_state, _link2->_state));
 }
 
@@ -77,10 +78,11 @@ std::ostream &operator<<(std::ostream &os, const nts::PIN *pin)
 
 nts::Tristate nts::PIN::Andop(nts::Tristate pin1, nts::Tristate pin2)
 {
-    if (pin1 && pin2)
-        return nts::True;
-    else if (pin1 == nts::False || pin2 == nts::False)
+    std::cout << pin1 << " " << pin2 << std::endl;
+    if (pin1 == 0 || pin2 == 0)
         return nts::False;
+    else if (pin1 == nts::True && pin2 == nts::True)
+        return nts::True;
     else
         return nts::Undefined;
 }
@@ -93,7 +95,6 @@ nts::Tristate nts::PIN::Orop(nts::Tristate pin1, nts::Tristate pin2)
         return nts::True;
     else if (pin1 == 1)
         return nts::True;
-    std::cout << "hello\n" << (pin2 == 1);
     return nts::Undefined;
 }
 
@@ -105,7 +106,6 @@ nts::Tristate nts::PIN::Xorop(nts::Tristate pin1, nts::Tristate pin2)
         return nts::Undefined;
     else if (pin2 == 0)
         return nts::True;
-    // std::cout << "hello\n" << (pin1 == nts::Undefined);
     return nts::False;
 }
 
@@ -115,6 +115,5 @@ nts::Tristate nts::PIN::Invertop(nts::Tristate pin1, nts::Tristate pin2)
         return nts::Undefined;
     else if (pin1 == nts::True)
         return nts::False;
-    else
-        return nts::True;
+    return nts::True;
 }

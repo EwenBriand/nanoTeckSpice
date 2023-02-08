@@ -5,12 +5,15 @@
 ## my Makefile
 ##
 
-SRC	= 	src/PIN/PIN.cpp \
-		src/And/And.cpp \
-		src/Or/Or.cpp \
-		src/Xor/Xor.cpp \
-		src/Input/Input.cpp \
-		src/Output/Output.cpp \
+SRC	= 	src/Comp/PIN/PIN.cpp \
+		src/Comp/And/And.cpp \
+		src/Comp/Or/Or.cpp \
+		src/Comp/Xor/Xor.cpp \
+		src/Comp/Invert/Invert.cpp \
+		src/Comp/Input/Input.cpp \
+		src/Comp/Output/Output.cpp \
+		src/parsing/parse.cpp \
+		src/Tower/ControlTower.cpp \
 
 
 OBJ	=	$(SRC:.cpp=.o)

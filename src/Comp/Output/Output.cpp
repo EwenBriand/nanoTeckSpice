@@ -18,6 +18,7 @@
 
 nts::Output::Output(std::string name)
 {
+    _type = nts::Type::output;
     _pins[0] = new nts::PIN();
     _pins[0]->setType(nts::Type::output);
     _pins[0]->setName(name);
@@ -26,8 +27,10 @@ nts::Output::Output(std::string name)
 nts::Output::~Output()
 {
     for (size_t it = 0; it < _pins.size(); it++)
-        if (_pins[it])
+        if (_pins[it]->getType() == nts::Type::output) {
             delete _pins[0];
+            _pins[0] = nullptr;
+        }
 }
 
 void nts::Output::setLink(
@@ -37,6 +40,7 @@ void nts::Output::setLink(
         return;
 
     std::string name = _pins[pin]->getName();
+    delete _pins[pin];
     _pins[pin] = other.getList()[otherPin];
     _pins[0]->setName(name);
 }

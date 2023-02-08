@@ -1,12 +1,12 @@
 /*
 ** EPITECH PROJECT, 2023
-** B-OOP-400-BAR-4-1-tekspice-ewen.briOr
+** B-OOP-400-BAR-4-1-tekspice-ewen.briXor
 ** File description:
-** Or
+** Xor
 */
 
-#ifndef D041E0C5_7AAD_47A0_9A37_7A6E9F13058
-#define D041E0C5_7AAD_47A0_9A37_7A6E9F13058
+#ifndef D041E0C5_7AAD_47A0_9A37_7A6E9F13059
+#define D041E0C5_7AAD_47A0_9A37_7A6E9F13059
 
 #include "../PIN/PIN.hpp"
 #include "nts.hpp"
@@ -14,13 +14,14 @@
 
 namespace nts
 {
-    class Or : virtual public nts::IComponent {
+    class Xor : virtual public nts::IComponent {
       protected:
         std::unordered_map<int, nts::PIN *> _pins;
+        std::vector<int> _deleting;
 
       public:
-        Or();
-        ~Or();
+        Xor();
+        ~Xor();
 
         void simulate(std::size_t tick) override;
         void setLink(std::size_t pin, nts::IComponent &other,

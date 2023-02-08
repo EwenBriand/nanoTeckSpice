@@ -1,13 +1,13 @@
 /*
 ** EPITECH PROJECT, 2023
-** B-OOP-400-BAR-4-1-tekspice-ewen.briXor
+** B-OOP-400-BAR-4-1-tekspice-ewen.briand
 ** File description:
-** Xor
+** And
 */
 
-#include "Xor.hpp"
+#include "And.hpp"
 
-// nts::Tristate nts::Xor::compute(std::size_t pin)
+// nts::Tristate nts::And::compute(std::size_t pin)
 // {
 //     // if (pin > _pins.size())
 //     //     return nts::Undefined;
@@ -16,27 +16,28 @@
 //     // return *it->getState();
 // }
 
-nts::Xor::Xor()
+nts::And::And()
 {
+    _type = nts::Type::TAnd;
     _pins[0] = new nts::PIN();
     _pins[1] = new nts::PIN();
     _pins[2] = new nts::PIN();
-    _pins[0]->setType(nts::Type::input);
-    _pins[1]->setType(nts::Type::input);
-    _pins[2]->setType(nts::Type::output);
-    _pins[2]->setFunc(&nts::PIN::Xorop);
+    _pins[2]->setFunc(&nts::PIN::Andop);
     _pins[2]->setLink1(_pins[0]);
     _pins[2]->setLink2(_pins[1]);
+    _deleting.push_back(0);
+    _deleting.push_back(1);
+    _deleting.push_back(2);
 }
 
-nts::Xor::~Xor()
+nts::And::~And()
 {
-    // fXor (size_t it = 0; it < _pins.size(); it++)
-    //     if (_pins[it])
-    //         delete _pins[it];
+    for (const auto &key : _deleting)
+        if (key != -1 && _pins[key])
+            delete _pins[key];
 }
 
-void nts::Xor::setLink(
+void nts::And::setLink(
     std::size_t pin, nts::IComponent &other, std::size_t otherPin)
 {
     // pin == position de ton pin dans _pins
@@ -44,23 +45,26 @@ void nts::Xor::setLink(
     // otherPin == la position du pin dans other
     if (pin > _pins.size() || otherPin > other.getList().size())
         return;
-    _pins[pin] = other.getList()[otherPin];
+    if (_pins[pin]->getType() == nts::New) {
+        delete _pins[pin];
+        _deleting[pin] = -1;
+        _pins[pin] = other.getList()[otherPin];
+    } else
+        other.setLink(otherPin, *this, pin);
 }
 
-void nts::Xor::simulate(std::size_t ticks)
+void nts::And::simulate(std::size_t ticks)
 {
     _pins[2]->setLink1(_pins[0]);
     _pins[2]->setLink2(_pins[1]);
-    _pins[2]->setFunc(&nts::PIN::Xorop);
+    _pins[2]->setFunc(&nts::PIN::Andop);
     for (size_t it = 0; it < _pins.size(); it++)
         if (_pins[it]->getType() == nts::Type::clock)
             _pins[it]->setState((nts::Tristate)(ticks % 2));
-    std::cout << "HELLO " << _pins[0] << " " << _pins[1] << " ";
     _pins[2]->compute();
-    std::cout << _pins[2] << "\n";
 }
 
-std::unordered_map<int, nts::PIN *> nts::Xor::getList() const
+std::unordered_map<int, nts::PIN *> nts::And::getList() const
 {
     return _pins;
 }
