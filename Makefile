@@ -12,8 +12,12 @@ SRC	= 	src/Comp/PIN/PIN.cpp \
 		src/Comp/Invert/Invert.cpp \
 		src/Comp/Input/Input.cpp \
 		src/Comp/Output/Output.cpp \
+		src/Comp/Clock/Clock.cpp \
+		src/Comp/True/True.cpp \
+		src/Comp/False/False.cpp \
 		src/parsing/parse.cpp \
 		src/Tower/ControlTower.cpp \
+		src/execution/execution.cpp \
 
 
 OBJ	=	$(SRC:.cpp=.o)

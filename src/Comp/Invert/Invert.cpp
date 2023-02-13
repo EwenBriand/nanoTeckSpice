@@ -52,14 +52,14 @@ void nts::Invert::setLink(
 
 void nts::Invert::simulate(std::size_t ticks)
 {
-    std::cout << "HELLO " << _pins[0] << " ";
+    // std::cout << "HELLO " << _pins[0] << " ";
     _pins[1]->setLink1(_pins[0]);
     _pins[1]->setFunc(&nts::PIN::Invertop);
     for (size_t it = 0; it < _pins.size(); it++)
         if (_pins[it]->getType() == nts::Type::clock)
             _pins[it]->setState((nts::Tristate)(ticks % 2));
     _pins[1]->compute();
-    std::cout << _pins[1] << "\n";
+    // std::cout << _pins[1] << "\n";
 }
 
 std::unordered_map<int, nts::PIN *> nts::Invert::getList() const

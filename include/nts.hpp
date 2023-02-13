@@ -5,8 +5,8 @@
 ** nts
 */
 
-#ifndef A1F652E5_DEA3_407B_B0ED_02343818795A
-#define A1F652E5_DEA3_407B_B0ED_02343818795A
+#ifndef A1F652E5_DEA3_407B_B0ED_02343818795
+#define A1F652E5_DEA3_407B_B0ED_02343818795
 
 #include <cstddef>
 #include <iostream>
@@ -61,6 +61,9 @@ namespace nts
     class Invert;
     class Input;
     class Output;
+    class Clock;
+    class ATrue;
+    class AFalse;
 
     class ControlTower;
 } // namespace nts

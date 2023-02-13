@@ -110,9 +110,9 @@ nts::ControlTower *parse(const char *file)
     if (stop != 0)
         return nullptr;
 
-    auto _circuit = tower->getCircuit();
-    for (auto it : _circuit) {
-        std::cout << it.first << std::endl;
-    }
+    // auto _circuit = tower->getCircuit();
+    // for (auto it : _circuit) {
+    //     std::cout << it.first << std::endl;
+    // }
     return tower;
 }

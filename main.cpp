@@ -5,10 +5,13 @@
 ** main
 */
 
+#include <iostream>
 #include <stddef.h>
 #include <string>
 #include "my.hpp"
 #include "nts.hpp"
+
+#include <signal.h>
 
 int main(int argc, char **argv, char **env)
 {
@@ -20,12 +23,7 @@ int main(int argc, char **argv, char **env)
     if (tower == nullptr)
         return ERROR_VALUE;
 
-    tower->getElement("in_1")->getList()[0]->setState(nts::Tristate::False);
-    tower->getElement("in_2")->getList()[0]->setState(nts::Tristate::True);
-    tower->getElement("gate")->simulate(1);
-    tower->getElement("in_1")->simulate(1);
-    tower->getElement("in_2")->simulate(1);
-    tower->getElement("out")->simulate(1);
+    execution(tower);
 
     delete tower;
     // nts::Output out("output");

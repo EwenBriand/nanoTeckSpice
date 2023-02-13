@@ -72,13 +72,13 @@ void nts::PIN::compute()
 std::ostream &operator<<(std::ostream &os, const nts::PIN *pin)
 {
     if (pin->getState() == nts::Tristate::Undefined)
-        return os << pin->getName() << ": U";
-    return os << pin->getName() << ": " << pin->getState();
+        return os << "U";
+    return os << pin->getState();
 }
 
 nts::Tristate nts::PIN::Andop(nts::Tristate pin1, nts::Tristate pin2)
 {
-    std::cout << pin1 << " " << pin2 << std::endl;
+    // std::cout << pin1 << " " << pin2 << std::endl;
     if (pin1 == 0 || pin2 == 0)
         return nts::False;
     else if (pin1 == nts::True && pin2 == nts::True)

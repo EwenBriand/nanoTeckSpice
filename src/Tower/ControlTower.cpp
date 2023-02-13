@@ -22,16 +22,16 @@ nts::ControlTower::~ControlTower()
             delete it.second;
             _circuit[it.first] = nullptr;
             keys_to_remove.push_back(it.first);
-            std::cout << "Deleting element 1: " << it.first << std::endl;
+            // std::cout << "Deleting element 1: " << it.first << std::endl;
         }
-        std::cout << "Deleting element 2: " << it.first << std::endl;
+        // std::cout << "Deleting element 2: " << it.first << std::endl;
     }
 
     for (const auto &key : keys_to_remove) {
         delete _circuit[key];
         _circuit[key] = nullptr;
         _circuit.erase(key);
-        std::cout << "Deleting element: " << key << std::endl;
+        // std::cout << "Deleting element: " << key << std::endl;
     }
 
     keys_to_remove.clear();
@@ -47,16 +47,17 @@ nts::ControlTower::~ControlTower()
         delete _circuit[key];
         _circuit[key] = nullptr;
         _circuit.erase(key);
-        std::cout << "Deleting element: " << key << std::endl;
+        // std::cout << "Deleting element: " << key << std::endl;
     }
 }
 
 int nts::ControlTower::addElement(std::string name, std::string type)
 {
-    std::cout << "Adding element: " << name << " of type: " << type
-              << std::endl;
+    // std::cout << "Adding element: " << name << " of type: " << type
+    //           << std::endl;
     std::map<std::string, int> typeMap = {{"input", 1}, {"output", 2},
-        {"and", 3}, {"or", 4}, {"xor", 5}, {"not", 6}};
+        {"and", 3}, {"or", 4}, {"xor", 5}, {"not", 6}, {"clock", 7},
+        {"true", 8}, {"false", 9}};
 
     int typeValue = 0;
     auto it = typeMap.find(type);
@@ -77,15 +78,15 @@ int nts::ControlTower::addElement(std::string name, std::string type)
         case 4: _circuit[name] = new nts::Or(); break;
         case 5: _circuit[name] = new nts::Xor(); break;
         case 6: _circuit[name] = new nts::Invert(); break;
-        // case "clock": _circuit[name] = new Clock(name); break;
-        // case "true": _circuit[name] = new ATrue(name); break;
-        // case "false": _circuit[name] = new AFalse(name); break;
-        // case "4001": _circuit[name] = new c4001(name); break;
-        // case "4011": _circuit[name] = new c4011(name); break;
-        // case "4030": _circuit[name] = new c4030(name); break;
-        // case "4069": _circuit[name] = new c4069(name); break;
-        // case "4071": _circuit[name] = new c4071(name); break;
-        // case "4081": _circuit[name] = new c4081(name); break;
+        case 7: _circuit[name] = new nts::Clock(name); break;
+        case 8: _circuit[name] = new nts::ATrue(name); break;
+        case 9: _circuit[name] = new nts::AFalse(name); break;
+        // case "4001": _circuit[name] = new nts::c4001(name); break;
+        // case "4011": _circuit[name] = new nts::c4011(name); break;
+        // case "4030": _circuit[name] = new nts::c4030(name); break;
+        // case "4069": _circuit[name] = new nts::c4069(name); break;
+        // case "4071": _circuit[name] = new nts::c4071(name); break;
+        // case "4081": _circuit[name] = new nts::c4081(name); break;
         default: return 84;
     }
 

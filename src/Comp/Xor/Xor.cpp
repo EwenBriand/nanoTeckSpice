@@ -45,7 +45,7 @@ void nts::Xor::setLink(
     // otherPin == la position du pin dans other
     if (pin > _pins.size() || otherPin > other.getList().size())
         return;
-    std::cout << "set link " << _pins[pin]->getType() << std::endl;
+    // std::cout << "set link " << _pins[pin]->getType() << std::endl;
     if (_pins[pin]->getType() == nts::New) {
         delete _pins[pin];
         _deleting[pin] = -1;
@@ -62,9 +62,9 @@ void nts::Xor::simulate(std::size_t ticks)
     for (size_t it = 0; it < _pins.size(); it++)
         if (_pins[it]->getType() == nts::Type::clock)
             _pins[it]->setState((nts::Tristate)(ticks % 2));
-    std::cout << "HELLO " << _pins[0] << " " << _pins[1] << " ";
+    // std::cout << "HELLO " << _pins[0] << " " << _pins[1] << " ";
     _pins[2]->compute();
-    std::cout << _pins[2] << "\n";
+    // std::cout << _pins[2] << "\n";
 }
 
 std::unordered_map<int, nts::PIN *> nts::Xor::getList() const
