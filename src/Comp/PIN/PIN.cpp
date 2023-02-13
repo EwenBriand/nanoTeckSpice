@@ -7,7 +7,7 @@
 
 #include "PIN.hpp"
 
-nts::PIN::PIN() : _state(nts::Undefined), _name(""), _type(nts::New)
+nts::PIN::PIN() : _state(nts::Undefined), _name(""), _type(nts::Type::New)
 {
     _link1 = nullptr;
     _link2 = nullptr;

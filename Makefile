@@ -9,6 +9,8 @@ SRC	= 	src/Comp/PIN/PIN.cpp \
 		src/Comp/And/And.cpp \
 		src/Comp/Or/Or.cpp \
 		src/Comp/Xor/Xor.cpp \
+		src/Comp/Logger/Logger.cpp \
+		src/Comp/O4001/O4001.cpp \
 		src/Comp/Invert/Invert.cpp \
 		src/Comp/Input/Input.cpp \
 		src/Comp/Output/Output.cpp \

@@ -57,7 +57,7 @@ int nts::ControlTower::addElement(std::string name, std::string type)
     //           << std::endl;
     std::map<std::string, int> typeMap = {{"input", 1}, {"output", 2},
         {"and", 3}, {"or", 4}, {"xor", 5}, {"not", 6}, {"clock", 7},
-        {"true", 8}, {"false", 9}};
+        {"true", 8}, {"false", 9}, {"logger", 10}, {"4001", 11}};
 
     int typeValue = 0;
     auto it = typeMap.find(type);
@@ -81,12 +81,13 @@ int nts::ControlTower::addElement(std::string name, std::string type)
         case 7: _circuit[name] = new nts::Clock(name); break;
         case 8: _circuit[name] = new nts::ATrue(name); break;
         case 9: _circuit[name] = new nts::AFalse(name); break;
-        // case "4001": _circuit[name] = new nts::c4001(name); break;
-        // case "4011": _circuit[name] = new nts::c4011(name); break;
-        // case "4030": _circuit[name] = new nts::c4030(name); break;
-        // case "4069": _circuit[name] = new nts::c4069(name); break;
-        // case "4071": _circuit[name] = new nts::c4071(name); break;
-        // case "4081": _circuit[name] = new nts::c4081(name); break;
+        case 10: _circuit[name] = new nts::Logger(); break;
+        case 11: _circuit[name] = new nts::O4001(); break;
+        // case "4011": _circuit[name] = new nts::c4011(); break;
+        // case "4030": _circuit[name] = new nts::c4030(); break;
+        // case "4069": _circuit[name] = new nts::c4069(); break;
+        // case "4071": _circuit[name] = new nts::c4071(); break;
+        // case "4081": _circuit[name] = new nts::c4081(); break;
         default: return 84;
     }
 

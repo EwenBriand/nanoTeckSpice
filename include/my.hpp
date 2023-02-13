@@ -16,6 +16,8 @@
 
 #include "../src/Comp/And/And.hpp"
 #include "../src/Comp/Invert/Invert.hpp"
+#include "../src/Comp/Logger/Logger.hpp"
+#include "../src/Comp/O4001/O4001.hpp"
 #include "../src/Comp/Or/Or.hpp"
 #include "../src/Comp/Xor/Xor.hpp"
 

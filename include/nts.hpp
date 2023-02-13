@@ -28,6 +28,7 @@ namespace nts
         TOr,
         TXor,
         TNot,
+        logger,
         o4001,
         o4011,
         o4030,
@@ -64,6 +65,8 @@ namespace nts
     class Clock;
     class ATrue;
     class AFalse;
+    class Logger;
+    class O4001;
 
     class ControlTower;
 } // namespace nts
