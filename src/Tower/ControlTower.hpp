@@ -20,10 +20,13 @@ namespace nts
         int addElement(std::string name, std::string type);
         nts::IComponent *getElement(std::string name);
         const std::unordered_map<std::string, nts::IComponent *> &getCircuit();
+        const std::unordered_map<int, std::string> &getName();
 
       protected:
       private:
         std::unordered_map<std::string, nts::IComponent *> _circuit;
+        std::unordered_map<int, std::string> _name;
+        int _value;
     };
 }; // namespace nts
 

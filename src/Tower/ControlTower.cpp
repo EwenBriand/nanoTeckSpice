@@ -10,6 +10,7 @@
 
 nts::ControlTower::ControlTower()
 {
+    _value = 0;
 }
 
 nts::ControlTower::~ControlTower()
@@ -57,7 +58,8 @@ int nts::ControlTower::addElement(std::string name, std::string type)
     //           << std::endl;
     std::map<std::string, int> typeMap = {{"input", 1}, {"output", 2},
         {"and", 3}, {"or", 4}, {"xor", 5}, {"not", 6}, {"clock", 7},
-        {"true", 8}, {"false", 9}, {"logger", 10}, {"4001", 11}};
+        {"true", 8}, {"false", 9}, {"logger", 10}, {"4001", 11}, {"4011", 12},
+        {"4030", 13}, {"4069", 14}};
 
     int typeValue = 0;
     auto it = typeMap.find(type);
@@ -71,6 +73,8 @@ int nts::ControlTower::addElement(std::string name, std::string type)
         return 84;
     }
 
+    _name[_value] = name;
+    _value++;
     switch (typeValue) {
         case 1: _circuit[name] = new nts::Input(name); break;
         case 2: _circuit[name] = new nts::Output(name); break;
@@ -83,9 +87,9 @@ int nts::ControlTower::addElement(std::string name, std::string type)
         case 9: _circuit[name] = new nts::AFalse(name); break;
         case 10: _circuit[name] = new nts::Logger(); break;
         case 11: _circuit[name] = new nts::O4001(); break;
-        // case "4011": _circuit[name] = new nts::c4011(); break;
-        // case "4030": _circuit[name] = new nts::c4030(); break;
-        // case "4069": _circuit[name] = new nts::c4069(); break;
+        case 12: _circuit[name] = new nts::C4011(); break;
+        case 13: _circuit[name] = new nts::C4030(); break;
+        case 14: _circuit[name] = new nts::C4069(); break;
         // case "4071": _circuit[name] = new nts::c4071(); break;
         // case "4081": _circuit[name] = new nts::c4081(); break;
         default: return 84;
@@ -98,6 +102,11 @@ const std::unordered_map<std::string, nts::IComponent *> &
 nts::ControlTower::getCircuit()
 {
     return _circuit;
+}
+
+const std::unordered_map<int, std::string> &nts::ControlTower::getName()
+{
+    return _name;
 }
 
 nts::IComponent *nts::ControlTower::getElement(std::string name)

@@ -1,13 +1,13 @@
 /*
 ** EPITECH PROJECT, 2023
-** B-OOP-400-BAR-4-1-tekspice-ewen.briO4001
+** B-OOP-400-BAR-4-1-tekspice-ewen.briC4011
 ** File description:
-** O4001
+** C4011
 */
 
-#include "O4001.hpp"
+#include "C4011.hpp"
 
-// nts::Tristate nts::O4001::compute(std::size_t pin)
+// nts::Tristate nts::C4011::compute(std::size_t pin)
 // {
 //     // if (pin > _pins.size())
 //     //     return nts::Undefined;
@@ -16,25 +16,25 @@
 //     // return *it->getState();
 // }
 
-nts::O4001::O4001()
+nts::C4011::C4011()
 {
-    _type = nts::Type::o4001;
+    _type = nts::Type::o4011;
     for (int i = 0; i < 14; ++i)
         _pins[i + 0] = new nts::PIN();
 
-    _pins[2]->setFunc(&nts::PIN::Orop);
+    _pins[2]->setFunc(&nts::PIN::Andop);
     _pins[2]->setLink1(_pins[0]);
     _pins[2]->setLink2(_pins[1]);
 
-    _pins[3]->setFunc(&nts::PIN::Orop);
+    _pins[3]->setFunc(&nts::PIN::Andop);
     _pins[3]->setLink1(_pins[5]);
     _pins[3]->setLink2(_pins[4]);
 
-    _pins[9]->setFunc(&nts::PIN::Orop);
+    _pins[9]->setFunc(&nts::PIN::Andop);
     _pins[9]->setLink1(_pins[7]);
     _pins[9]->setLink2(_pins[8]);
 
-    _pins[10]->setFunc(&nts::PIN::Orop);
+    _pins[10]->setFunc(&nts::PIN::Andop);
     _pins[10]->setLink1(_pins[12]);
     _pins[10]->setLink2(_pins[11]);
 
@@ -42,14 +42,14 @@ nts::O4001::O4001()
         _deleting.push_back(i);
 }
 
-nts::O4001::~O4001()
+nts::C4011::~C4011()
 {
     for (const auto &key : _deleting)
         if (key != -1 && _pins[key])
             delete _pins[key];
 }
 
-void nts::O4001::setLink(
+void nts::C4011::setLink(
     std::size_t pin, nts::IComponent &other, std::size_t otherPin)
 {
     // pin == position de ton pin dans _pins
@@ -65,21 +65,21 @@ void nts::O4001::setLink(
         other.setLink(otherPin, *this, pin);
 }
 
-void nts::O4001::simulate(std::size_t ticks)
+void nts::C4011::simulate(std::size_t ticks)
 {
-    _pins[2]->setFunc(&nts::PIN::Orop);
+    _pins[2]->setFunc(&nts::PIN::Andop);
     _pins[2]->setLink1(_pins[0]);
     _pins[2]->setLink2(_pins[1]);
 
-    _pins[3]->setFunc(&nts::PIN::Orop);
+    _pins[3]->setFunc(&nts::PIN::Andop);
     _pins[3]->setLink1(_pins[5]);
     _pins[3]->setLink2(_pins[4]);
 
-    _pins[9]->setFunc(&nts::PIN::Orop);
+    _pins[9]->setFunc(&nts::PIN::Andop);
     _pins[9]->setLink1(_pins[7]);
     _pins[9]->setLink2(_pins[8]);
 
-    _pins[10]->setFunc(&nts::PIN::Orop);
+    _pins[10]->setFunc(&nts::PIN::Andop);
     _pins[10]->setLink1(_pins[12]);
     _pins[10]->setLink2(_pins[11]);
 
@@ -94,7 +94,7 @@ void nts::O4001::simulate(std::size_t ticks)
     // std::cout << _pins[2] << "\n";
 }
 
-std::unordered_map<int, nts::PIN *> nts::O4001::getList() const
+std::unordered_map<int, nts::PIN *> nts::C4011::getList() const
 {
     return _pins;
 }

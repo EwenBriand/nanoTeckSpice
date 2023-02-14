@@ -67,6 +67,9 @@ namespace nts
     class AFalse;
     class Logger;
     class O4001;
+    class C4011;
+    class C4030;
+    class C4069;
 
     class ControlTower;
 } // namespace nts

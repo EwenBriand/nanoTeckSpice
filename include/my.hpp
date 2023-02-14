@@ -15,6 +15,9 @@
 #include "../src/Comp/True/True.hpp"
 
 #include "../src/Comp/And/And.hpp"
+#include "../src/Comp/C4011/C4011.hpp"
+#include "../src/Comp/C4030/C4030.hpp"
+#include "../src/Comp/C4069/C4069.hpp"
 #include "../src/Comp/Invert/Invert.hpp"
 #include "../src/Comp/Logger/Logger.hpp"
 #include "../src/Comp/O4001/O4001.hpp"
