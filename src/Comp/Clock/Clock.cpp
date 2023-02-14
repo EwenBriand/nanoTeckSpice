@@ -44,12 +44,6 @@ void nts::Clock::setLink(
 
 void nts::Clock::simulate(std::size_t ticks)
 {
-    if (ticks == 0)
-        _pins[0]->setState(nts::Tristate::Undefined);
-    else if (ticks % 2 == 0)
-        _pins[0]->setState(nts::Tristate::True);
-    else if (ticks % 2 == 1)
-        _pins[0]->setState(nts::Tristate::False);
     std::cout << _pins[0] << std::endl;
 }
 
