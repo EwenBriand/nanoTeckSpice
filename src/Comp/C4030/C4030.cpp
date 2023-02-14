@@ -18,7 +18,7 @@
 
 nts::C4030::C4030()
 {
-    _type = nts::Type::o4011;
+    _type = nts::Type::o4030;
     for (int i = 0; i < 14; ++i)
         _pins[i + 0] = new nts::PIN();
 

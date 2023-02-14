@@ -14,6 +14,8 @@ SRC	= 	src/Comp/PIN/PIN.cpp \
 		src/Comp/C4011/C4011.cpp \
 		src/Comp/C4030/C4030.cpp \
 		src/Comp/C4069/C4069.cpp \
+		src/Comp/C4071/C4071.cpp \
+		src/Comp/C4081/C4081.cpp \
 		src/Comp/Invert/Invert.cpp \
 		src/Comp/Input/Input.cpp \
 		src/Comp/Output/Output.cpp \

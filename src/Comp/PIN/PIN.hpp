@@ -42,6 +42,8 @@ namespace nts
 
         nts::Tristate Andop(nts::Tristate pin1, nts::Tristate pin2);
         nts::Tristate Orop(nts::Tristate pin1, nts::Tristate pin2);
+        nts::Tristate NAndop(nts::Tristate pin1, nts::Tristate pin2);
+        nts::Tristate NOrop(nts::Tristate pin1, nts::Tristate pin2);
         nts::Tristate Xorop(nts::Tristate pin1, nts::Tristate pin2);
         nts::Tristate Invertop(nts::Tristate pin1, nts::Tristate pin2);
     };

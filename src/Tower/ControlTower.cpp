@@ -59,7 +59,7 @@ int nts::ControlTower::addElement(std::string name, std::string type)
     std::map<std::string, int> typeMap = {{"input", 1}, {"output", 2},
         {"and", 3}, {"or", 4}, {"xor", 5}, {"not", 6}, {"clock", 7},
         {"true", 8}, {"false", 9}, {"logger", 10}, {"4001", 11}, {"4011", 12},
-        {"4030", 13}, {"4069", 14}};
+        {"4030", 13}, {"4069", 14}, {"4071", 15}, {"4081", 16}};
 
     int typeValue = 0;
     auto it = typeMap.find(type);
@@ -90,8 +90,8 @@ int nts::ControlTower::addElement(std::string name, std::string type)
         case 12: _circuit[name] = new nts::C4011(); break;
         case 13: _circuit[name] = new nts::C4030(); break;
         case 14: _circuit[name] = new nts::C4069(); break;
-        // case "4071": _circuit[name] = new nts::c4071(); break;
-        // case "4081": _circuit[name] = new nts::c4081(); break;
+        case 15: _circuit[name] = new nts::C4071(); break;
+        case 16: _circuit[name] = new nts::C4081(); break;
         default: return 84;
     }
 

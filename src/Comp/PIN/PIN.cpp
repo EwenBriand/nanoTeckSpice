@@ -117,3 +117,17 @@ nts::Tristate nts::PIN::Invertop(nts::Tristate pin1, nts::Tristate pin2)
         return nts::False;
     return nts::True;
 }
+
+nts::Tristate nts::PIN::NAndop(nts::Tristate pin1, nts::Tristate pin2)
+{
+    // std::cout << pin1 << " " << pin2 << std::endl;
+    nts::Tristate tmp = nts::PIN::Andop(pin1, pin2);
+    return Invertop(tmp, pin1);
+}
+
+nts::Tristate nts::PIN::NOrop(nts::Tristate pin1, nts::Tristate pin2)
+{
+    // std::cout << pin1 << " " << pin2 << std::endl;
+    nts::Tristate tmp = Orop(pin1, pin2);
+    return Invertop(tmp, pin1);
+}

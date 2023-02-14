@@ -18,6 +18,8 @@
 #include "../src/Comp/C4011/C4011.hpp"
 #include "../src/Comp/C4030/C4030.hpp"
 #include "../src/Comp/C4069/C4069.hpp"
+#include "../src/Comp/C4071/C4071.hpp"
+#include "../src/Comp/C4081/C4081.hpp"
 #include "../src/Comp/Invert/Invert.hpp"
 #include "../src/Comp/Logger/Logger.hpp"
 #include "../src/Comp/O4001/O4001.hpp"

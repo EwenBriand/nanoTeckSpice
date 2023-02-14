@@ -70,6 +70,8 @@ namespace nts
     class C4011;
     class C4030;
     class C4069;
+    class C4071;
+    class C4081;
 
     class ControlTower;
 } // namespace nts

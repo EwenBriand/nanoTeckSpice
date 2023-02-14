@@ -22,19 +22,19 @@ nts::O4001::O4001()
     for (int i = 0; i < 14; ++i)
         _pins[i + 0] = new nts::PIN();
 
-    _pins[2]->setFunc(&nts::PIN::Orop);
+    _pins[2]->setFunc(&nts::PIN::NOrop);
     _pins[2]->setLink1(_pins[0]);
     _pins[2]->setLink2(_pins[1]);
 
-    _pins[3]->setFunc(&nts::PIN::Orop);
+    _pins[3]->setFunc(&nts::PIN::NOrop);
     _pins[3]->setLink1(_pins[5]);
     _pins[3]->setLink2(_pins[4]);
 
-    _pins[9]->setFunc(&nts::PIN::Orop);
+    _pins[9]->setFunc(&nts::PIN::NOrop);
     _pins[9]->setLink1(_pins[7]);
     _pins[9]->setLink2(_pins[8]);
 
-    _pins[10]->setFunc(&nts::PIN::Orop);
+    _pins[10]->setFunc(&nts::PIN::NOrop);
     _pins[10]->setLink1(_pins[12]);
     _pins[10]->setLink2(_pins[11]);
 
@@ -67,19 +67,19 @@ void nts::O4001::setLink(
 
 void nts::O4001::simulate(std::size_t ticks)
 {
-    _pins[2]->setFunc(&nts::PIN::Orop);
+    _pins[2]->setFunc(&nts::PIN::NOrop);
     _pins[2]->setLink1(_pins[0]);
     _pins[2]->setLink2(_pins[1]);
 
-    _pins[3]->setFunc(&nts::PIN::Orop);
+    _pins[3]->setFunc(&nts::PIN::NOrop);
     _pins[3]->setLink1(_pins[5]);
     _pins[3]->setLink2(_pins[4]);
 
-    _pins[9]->setFunc(&nts::PIN::Orop);
+    _pins[9]->setFunc(&nts::PIN::NOrop);
     _pins[9]->setLink1(_pins[7]);
     _pins[9]->setLink2(_pins[8]);
 
-    _pins[10]->setFunc(&nts::PIN::Orop);
+    _pins[10]->setFunc(&nts::PIN::NOrop);
     _pins[10]->setLink1(_pins[12]);
     _pins[10]->setLink2(_pins[11]);
 

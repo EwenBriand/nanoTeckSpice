@@ -18,7 +18,7 @@
 
 nts::C4069::C4069()
 {
-    _type = nts::Type::o4011;
+    _type = nts::Type::o4069;
     for (int i = 0; i < 14; i++)
         _pins[i] = new nts::PIN();
 
