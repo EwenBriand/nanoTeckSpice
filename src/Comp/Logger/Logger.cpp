@@ -61,10 +61,6 @@ void nts::Logger::setLink(
 
 void nts::Logger::simulate(std::size_t ticks)
 {
-    for (size_t it = 0; it < _pins.size(); it++)
-        if (_pins[it]->getType() == nts::Type::clock)
-            _pins[it]->setState((nts::Tristate)(ticks % 2));
-
     std::cout << _pins[9] << "  " << _pins[8] << std::endl;
     if (_pins[9]->getState() != nts::False
         || _pins[8]->getState() != nts::True)
@@ -77,14 +73,15 @@ void nts::Logger::simulate(std::size_t ticks)
             return;
 
     int ch = std::stoi(my_char, 0, 2);
-    std::cout << ch << std::endl;
+    // std::cout << ch << std::endl;
     std::ofstream MyFile;
     MyFile.open("log.bin", std::ios::app);
     if (MyFile.is_open()) {
         MyFile << (char) ch;
         MyFile.close();
     } else {
-        std::cout << "Unable to open file";
+        // std::cout << "Unable to open file";
+        return;
     }
 }
 

@@ -11,6 +11,8 @@
 nts::ControlTower::ControlTower()
 {
     _value = 0;
+    _nameError = "";
+    _error.type = Error::UNKNOWN;
 }
 
 nts::ControlTower::~ControlTower()
@@ -64,12 +66,17 @@ int nts::ControlTower::addElement(std::string name, std::string type)
     int typeValue = 0;
     auto it = typeMap.find(type);
 
-    if (_circuit.find(name) != _circuit.end())
+    if (_circuit.find(name) != _circuit.end()) {
+        _nameError = name;
+        _error.type = nts::ControlTower::Error::SAME;
         return 84;
+    }
 
     if (it != typeMap.end()) {
         typeValue = it->second;
     } else {
+        _nameError = type;
+        _error.type = nts::ControlTower::Error::TYPE;
         return 84;
     }
 
@@ -92,7 +99,11 @@ int nts::ControlTower::addElement(std::string name, std::string type)
         case 14: _circuit[name] = new nts::C4069(); break;
         case 15: _circuit[name] = new nts::C4071(); break;
         case 16: _circuit[name] = new nts::C4081(); break;
-        default: return 84;
+        default:
+            _nameError = type;
+            _error.type = nts::ControlTower::Error::TYPE;
+            return 84;
+            ;
     }
 
     return 0;
@@ -116,4 +127,16 @@ nts::IComponent *nts::ControlTower::getElement(std::string name)
     if (it != _circuit.end())
         return it->second;
     return nullptr;
+}
+
+const char *nts::ControlTower::Error::what() const throw()
+{
+    switch (type) {
+        case LEX: return "Bad Lexical or syntax error";
+        case TYPE: return "Unknow component type '";
+        case NAME: return "Unknow component name '";
+        case SAME: return "' component already exists";
+        case CHIPSET: return "No chipset defined";
+        default: return "Unknonw error";
+    }
 }

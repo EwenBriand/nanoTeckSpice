@@ -22,7 +22,6 @@ void simulation(int clock, nts::ControlTower *tower)
     for (auto it : elem) {
         if (it.second->getType() != nts::Type::input
             && it.second->getType() != nts::Type::output
-            && it.second->getType() != nts::Type::clock
             && it.second->getType() != nts::Type::T
             && it.second->getType() != nts::Type::F)
             it.second->simulate(clock);
@@ -38,11 +37,13 @@ void display(nts::ControlTower *tower, int clock)
     for (auto name = 0; name < n.size(); ++name) {
         auto elem = circuit[n[name]];
         if (elem->getType() == nts::Type::input
-            || elem->getType() == nts::Type::clock
             || elem->getType() == nts::Type::T
             || elem->getType() == nts::Type::F) {
             std::cout << "  " << n[name] << ": ";
             elem->simulate(clock);
+        } else if (elem->getType() == nts::Type::clock) {
+            std::cout << "  " << n[name] << ": ";
+            elem->print();
         }
     }
     std::cout << "output(s):" << std::endl;
@@ -92,9 +93,9 @@ int loop(int clock, nts::ControlTower *tower)
     loopHandle = true;
     sighandler_t buffer = std::signal(SIGINT, ctrl_c_handler);
     while (loopHandle) {
+        ++clock;
         simulation(clock, tower);
         display(tower, clock);
-        ++clock;
     }
     signal(SIGINT, buffer);
     return clock;
@@ -110,8 +111,8 @@ void execution(nts::ControlTower *tower)
         if (line == "exit")
             break;
         if (line == "simulate") {
-            simulation(clock, tower);
             ++clock;
+            simulation(clock, tower);
         } else if (line == "display")
             display(tower, clock);
         else if (line == "loop")

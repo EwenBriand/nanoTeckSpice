@@ -21,17 +21,28 @@ void tokenize(
 
 std::string remove_space(std::string str)
 {
-    for (int i = str.size() - 1; i > 0; i--) {
-        if (str[i] == ' ' && str[i] == str[i - 1]) {
+    for (int i = str.size() - 1; i > 0; i--)
+        if (str[i] == '\t')
+            str[i] = ' ';
+        else if (str[i] == ' ' && str[i] == str[i - 1])
             str.erase(str.begin() + i);
-        }
-    }
+
     if (str[0] == ' ')
         str.erase(str.begin());
     if (str[str.size() - 1] == ' ')
         str.erase(str.size() - 1);
 
     return str;
+}
+
+bool check_path(const char *file)
+{
+    std::string path(file);
+    std::string ext = path.substr(path.find_last_of(".") + 1);
+
+    if (ext != "nts")
+        return false;
+    return true;
 }
 
 nts::ControlTower *parse(const char *file)
@@ -46,11 +57,12 @@ nts::ControlTower *parse(const char *file)
     std::vector<std::string> pin2;
     int stop = 0;
 
-    if (f.is_open()) {
+    if (check_path(file) && f.is_open()) {
         ss << f.rdbuf();
         data = ss.str();
     } else {
-        return nullptr;
+        tower->_error.type = nts::ControlTower::Error::LEX;
+        return tower;
     }
 
     tokenize(data, '\n', out);
@@ -65,8 +77,10 @@ nts::ControlTower *parse(const char *file)
         it = out.erase(it);
     }
 
-    if (out.size() == 0)
-        return nullptr;
+    if (out.size() == 0) {
+        tower->_error.type = nts::ControlTower::Error::CHIPSET;
+        return tower;
+    }
 
     // for (size_t i = 0; i < out.size(); i++)
     //     std::cout << out[i] << std::endl;
@@ -82,8 +96,12 @@ nts::ControlTower *parse(const char *file)
         it = out.erase(it);
     }
 
-    if (out.size() == 0)
-        return nullptr;
+    if (stop != 0)
+        return tower;
+    else if (out.size() == 0) {
+        tower->_error.type = nts::ControlTower::Error::LEX;
+        return tower;
+    }
 
     for (auto it = out.begin(); it != out.end() && stop == 0; it++) {
         line.clear();
@@ -93,22 +111,25 @@ nts::ControlTower *parse(const char *file)
             pin2.clear();
             tokenize(line[0], ':', pin1);
             tokenize(line[1], ':', pin2);
-            if (tower->getElement(pin1[0]) == nullptr) {
-                std::cout << "Unknow component name '" << pin1[0] << "'"
-                          << std::endl;
+            if (tower->getElement(pin1[0]) == nullptr
+                || std::stoi(pin1[1]) - 1 >= 3) {
+                tower->_nameError = pin1[0];
+                tower->_error.type = nts::ControlTower::Error::NAME;
                 stop = 84;
-            } else if (tower->getElement(pin2[0]) == nullptr) {
-                std::cout << "Unknow component name '" << pin2[0] << "'"
-                          << std::endl;
+            } else if (tower->getElement(pin2[0]) == nullptr
+                || std::stoi(pin2[1]) - 1 >= 3) {
+                tower->_nameError = pin2[0];
+                tower->_error.type = nts::ControlTower::Error::NAME;
                 stop = 84;
-            } else
+            } else {
                 tower->getElement(pin1[0])->setLink(std::stoi(pin1[1]) - 1,
                     *tower->getElement(pin2[0]), std::stoi(pin2[1]) - 1);
+            }
+        } else if (line.size() > 2) {
+            tower->_error.type = nts::ControlTower::Error::LEX;
+            stop = 84;
         }
     }
-
-    if (stop != 0)
-        return nullptr;
 
     // auto _circuit = tower->getCircuit();
     // for (auto it : _circuit) {

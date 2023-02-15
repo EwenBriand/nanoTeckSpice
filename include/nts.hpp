@@ -50,6 +50,10 @@ namespace nts
         virtual void setLink(
             std::size_t pin, nts::IComponent &other, std::size_t otherPin) = 0;
         virtual std::unordered_map<int, nts::PIN *> getList() const = 0;
+        virtual void print()
+        {
+            return;
+        };
         virtual nts::Type getType()
         {
             return _type;

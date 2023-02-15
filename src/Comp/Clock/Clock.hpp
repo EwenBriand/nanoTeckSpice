@@ -25,6 +25,7 @@ namespace nts
         void simulate(std::size_t tick) override;
         void setLink(std::size_t pin, nts::IComponent &other,
             std::size_t otherPin) override;
+        void print() override;
 
         std::unordered_map<int, nts::PIN *> getList() const override;
     };

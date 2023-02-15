@@ -87,9 +87,6 @@ void nts::C4069::simulate(std::size_t ticks)
     _pins[11]->setFunc(&nts::PIN::Invertop);
     _pins[11]->setLink1(_pins[12]);
 
-    for (size_t it = 0; it < _pins.size(); it++)
-        if (_pins[it]->getType() == nts::Type::clock)
-            _pins[it]->setState((nts::Tristate)(ticks % 2));
     // std::cout << "HELLO " << _pins[0] << " " << _pins[1] << " ";
     _pins[1]->compute();
     _pins[3]->compute();

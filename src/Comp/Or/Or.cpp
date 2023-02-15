@@ -58,9 +58,6 @@ void nts::Or::simulate(std::size_t ticks)
     _pins[2]->setLink1(_pins[0]);
     _pins[2]->setLink2(_pins[1]);
     _pins[2]->setFunc(&nts::PIN::Orop);
-    for (size_t it = 0; it < _pins.size(); it++)
-        if (_pins[it]->getType() == nts::Type::clock)
-            _pins[it]->setState((nts::Tristate)(ticks % 2));
     // std::cout << "HELLO " << _pins[0] << " " << _pins[1] << " ";
     _pins[2]->compute();
     // std::cout << _pins[2] << "\n";
