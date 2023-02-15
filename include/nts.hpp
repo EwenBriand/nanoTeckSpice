@@ -42,6 +42,7 @@ namespace nts
     class IComponent {
       protected:
         nts::Type _type;
+        bool _returned;
 
       public:
         // virtual nts::Tristate compute(std::size_t pin) = 0;

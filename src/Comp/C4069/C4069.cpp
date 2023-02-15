@@ -18,6 +18,7 @@
 
 nts::C4069::C4069()
 {
+    _returned = false;
     _type = nts::Type::o4069;
     for (int i = 0; i < 14; i++)
         _pins[i] = new nts::PIN();
@@ -59,12 +60,19 @@ void nts::C4069::setLink(
     // otherPin == la position du pin dans other
     if (pin > _pins.size() || otherPin > other.getList().size())
         return;
+
     if (_pins[pin]->getType() == nts::New) {
+        _returned = false;
         delete _pins[pin];
         _deleting[pin] = -1;
         _pins[pin] = other.getList()[otherPin];
-    } else
+    } else if (_returned == true) {
+        _pins[pin] = other.getList()[otherPin];
+        _returned = false;
+    } else {
+        _returned = true;
         other.setLink(otherPin, *this, pin);
+    }
 }
 
 void nts::C4069::simulate(std::size_t ticks)
