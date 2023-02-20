@@ -42,7 +42,7 @@ static const int END_VALUE = 0;
 
 nts::ControlTower *parse(const char *file);
 void execution(nts::ControlTower *tower);
-void tokenize(
+void split_string(
     std::string const &str, const char delim, std::vector<std::string> &out);
 std::string remove_space(std::string str);
 

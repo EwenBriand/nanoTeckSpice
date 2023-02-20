@@ -61,7 +61,7 @@ void check_value(std::string &line, nts::ControlTower *tower)
     std::string value;
     std::vector<std::string> out;
 
-    tokenize(line, '=', out);
+    split_string(line, '=', out);
     if (out.size() == 2) {
         name = remove_space(out[0]);
         value = remove_space(out[1]);
