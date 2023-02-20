@@ -7,18 +7,8 @@
 
 #include "C4030.hpp"
 
-// nts::Tristate nts::C4030::compute(std::size_t pin)
-// {
-//     // if (pin > _pins.size())
-//     //     return nts::Undefined;
-//     // auto it = _pins.begin();
-//     // std::advance(it, (int) pin - 1);
-//     // return *it->getState();
-// }
-
 nts::C4030::C4030()
 {
-    _returned = false;
     _type = nts::Type::o4030;
     for (int i = 0; i < 14; ++i)
         _pins[i + 0] = new nts::PIN();
@@ -41,36 +31,6 @@ nts::C4030::C4030()
 
     for (int i = 0; i < 15; i++)
         _deleting.push_back(i);
-}
-
-nts::C4030::~C4030()
-{
-    for (const auto &key : _deleting)
-        if (key != -1 && _pins[key])
-            delete _pins[key];
-}
-
-void nts::C4030::setLink(
-    std::size_t pin, nts::IComponent &other, std::size_t otherPin)
-{
-    // pin == position de ton pin dans _pins
-    // other == le componnent auquel tu veux le lier
-    // otherPin == la position du pin dans other
-    if (pin > _pins.size() || otherPin > other.getList().size())
-        return;
-
-    if (_pins[pin]->getType() == nts::New) {
-        _returned = false;
-        delete _pins[pin];
-        _deleting[pin] = -1;
-        _pins[pin] = other.getList()[otherPin];
-    } else if (_returned == true) {
-        _pins[pin] = other.getList()[otherPin];
-        _returned = false;
-    } else {
-        _returned = true;
-        other.setLink(otherPin, *this, pin);
-    }
 }
 
 void nts::C4030::simulate(std::size_t ticks)
@@ -97,9 +57,4 @@ void nts::C4030::simulate(std::size_t ticks)
     _pins[9]->compute();
     _pins[10]->compute();
     // std::cout << _pins[2] << "\n";
-}
-
-std::unordered_map<int, nts::PIN *> nts::C4030::getList() const
-{
-    return _pins;
 }

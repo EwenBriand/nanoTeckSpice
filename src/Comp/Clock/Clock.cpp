@@ -7,15 +7,6 @@
 
 #include "Clock.hpp"
 
-// nts::Tristate nts::Clock::compute(std::size_t pin)
-// {
-//     // if (pin > _pins.size())
-//     //     return nts::Undefined;
-//     // auto it = _pins.begin();
-//     // std::advance(it, (int) pin - 1);
-//     // return *it->getState();
-// }
-
 nts::Clock::Clock(std::string name)
 {
     _type = nts::Type::clock;
@@ -55,9 +46,4 @@ void nts::Clock::simulate(std::size_t ticks)
 void nts::Clock::print()
 {
     std::cout << _pins[0] << std::endl;
-}
-
-std::unordered_map<int, nts::PIN *> nts::Clock::getList() const
-{
-    return _pins;
 }

@@ -7,15 +7,6 @@
 
 #include "Output.hpp"
 
-// nts::Tristate nts::Output::compute(std::size_t pin)
-// {
-//     // if (pin > _pins.size())
-//     //     return nts::Undefined;
-//     // auto it = _pins.begin();
-//     // std::advance(it, (int) pin - 1);
-//     // return *it->getState();
-// }
-
 nts::Output::Output(std::string name)
 {
     _type = nts::Type::output;
@@ -49,9 +40,4 @@ void nts::Output::simulate(std::size_t ticks)
 {
     std::cout << _pins[0] << std::endl;
     // std::cout << (*_pins[0]) << std::endl;
-}
-
-std::unordered_map<int, nts::PIN *> nts::Output::getList() const
-{
-    return _pins;
 }

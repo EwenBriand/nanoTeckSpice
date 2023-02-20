@@ -7,15 +7,6 @@
 
 #include "C4069.hpp"
 
-// nts::Tristate nts::C4069::compute(std::size_t pin)
-// {
-//     // if (pin > _pins.size())
-//     //     return nts::Undefined;
-//     // auto it = _pins.begin();
-//     // std::advance(it, (int) pin - 1);
-//     // return *it->getState();
-// }
-
 nts::C4069::C4069()
 {
     _returned = false;
@@ -43,13 +34,6 @@ nts::C4069::C4069()
 
     for (int i = 0; i < 15; i++)
         _deleting.push_back(i);
-}
-
-nts::C4069::~C4069()
-{
-    for (const auto &key : _deleting)
-        if (key != -1 && _pins[key])
-            delete _pins[key];
 }
 
 void nts::C4069::setLink(
@@ -103,9 +87,4 @@ void nts::C4069::simulate(std::size_t ticks)
     _pins[9]->compute();
     _pins[11]->compute();
     // std::cout << _pins[2] << "\n";
-}
-
-std::unordered_map<int, nts::PIN *> nts::C4069::getList() const
-{
-    return _pins;
 }

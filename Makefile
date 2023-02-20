@@ -6,6 +6,7 @@
 ##
 
 SRC	= 	src/Comp/PIN/PIN.cpp \
+		src/Comp/AComponent/AComponent.cpp \
 		src/Comp/And/And.cpp \
 		src/Comp/Or/Or.cpp \
 		src/Comp/Xor/Xor.cpp \

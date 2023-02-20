@@ -8,26 +8,15 @@
 #ifndef D041E0C5_7AAD_47A0_9A37_7A6E9F130521312
 #define D041E0C5_7AAD_47A0_9A37_7A6E9F130521312
 
-#include "../PIN/PIN.hpp"
-#include "nts.hpp"
-#include <unordered_map>
+#include "../AComponent/AComponent.hpp"
 
 namespace nts
 {
-    class C4011 : virtual public nts::IComponent {
-      protected:
-        std::unordered_map<int, nts::PIN *> _pins;
-        std::vector<int> _deleting;
-
+    class C4011 : virtual public nts::AComponent {
       public:
         C4011();
-        ~C4011();
 
         void simulate(std::size_t tick) override;
-        void setLink(std::size_t pin, nts::IComponent &other,
-            std::size_t otherPin) override;
-
-        std::unordered_map<int, nts::PIN *> getList() const override;
     };
 } // namespace nts
 

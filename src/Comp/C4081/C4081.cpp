@@ -7,15 +7,6 @@
 
 #include "C4081.hpp"
 
-// nts::Tristate nts::C4081::compute(std::size_t pin)
-// {
-//     // if (pin > _pins.size())
-//     //     return nts::Undefined;
-//     // auto it = _pins.begin();
-//     // std::advance(it, (int) pin - 1);
-//     // return *it->getState();
-// }
-
 nts::C4081::C4081()
 {
     _returned = false;
@@ -43,36 +34,6 @@ nts::C4081::C4081()
         _deleting.push_back(i);
 }
 
-nts::C4081::~C4081()
-{
-    for (const auto &key : _deleting)
-        if (key != -1 && _pins[key])
-            delete _pins[key];
-}
-
-void nts::C4081::setLink(
-    std::size_t pin, nts::IComponent &other, std::size_t otherPin)
-{
-    // pin == position de ton pin dans _pins
-    // other == le componnent auquel tu veux le lier
-    // otherPin == la position du pin dans other
-    if (pin > _pins.size() || otherPin > other.getList().size())
-        return;
-
-    if (_pins[pin]->getType() == nts::New) {
-        _returned = false;
-        delete _pins[pin];
-        _deleting[pin] = -1;
-        _pins[pin] = other.getList()[otherPin];
-    } else if (_returned == true) {
-        _pins[pin] = other.getList()[otherPin];
-        _returned = false;
-    } else {
-        _returned = true;
-        other.setLink(otherPin, *this, pin);
-    }
-}
-
 void nts::C4081::simulate(std::size_t ticks)
 {
     _pins[2]->setFunc(&nts::PIN::Andop);
@@ -97,9 +58,4 @@ void nts::C4081::simulate(std::size_t ticks)
     _pins[9]->compute();
     _pins[10]->compute();
     // std::cout << _pins[2] << "\n";
-}
-
-std::unordered_map<int, nts::PIN *> nts::C4081::getList() const
-{
-    return _pins;
 }

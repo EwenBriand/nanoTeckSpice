@@ -14,6 +14,7 @@
 #include "../src/Comp/Output/Output.hpp"
 #include "../src/Comp/True/True.hpp"
 
+#include "../src/Comp/AComponent/AComponent.hpp"
 #include "../src/Comp/And/And.hpp"
 #include "../src/Comp/C4011/C4011.hpp"
 #include "../src/Comp/C4030/C4030.hpp"

@@ -7,18 +7,8 @@
 
 #include "And.hpp"
 
-// nts::Tristate nts::And::compute(std::size_t pin)
-// {
-//     // if (pin > _pins.size())
-//     //     return nts::Undefined;
-//     // auto it = _pins.begin();
-//     // std::advance(it, (int) pin - 1);
-//     // return *it->getState();
-// }
-
 nts::And::And()
 {
-    _returned = false;
     _type = nts::Type::TAnd;
     _pins[0] = new nts::PIN();
     _pins[1] = new nts::PIN();
@@ -31,45 +21,10 @@ nts::And::And()
     _deleting.push_back(2);
 }
 
-nts::And::~And()
-{
-    for (const auto &key : _deleting)
-        if (key != -1 && _pins[key])
-            delete _pins[key];
-}
-
-void nts::And::setLink(
-    std::size_t pin, nts::IComponent &other, std::size_t otherPin)
-{
-    // pin == position de ton pin dans _pins
-    // other == le componnent auquel tu veux le lier
-    // otherPin == la position du pin dans other
-    if (pin > _pins.size() || otherPin > other.getList().size())
-        return;
-
-    if (_pins[pin]->getType() == nts::New) {
-        _returned = false;
-        delete _pins[pin];
-        _deleting[pin] = -1;
-        _pins[pin] = other.getList()[otherPin];
-    } else if (_returned == true) {
-        _pins[pin] = other.getList()[otherPin];
-        _returned = false;
-    } else {
-        _returned = true;
-        other.setLink(otherPin, *this, pin);
-    }
-}
-
 void nts::And::simulate(std::size_t ticks)
 {
     _pins[2]->setLink1(_pins[0]);
     _pins[2]->setLink2(_pins[1]);
     _pins[2]->setFunc(&nts::PIN::Andop);
     _pins[2]->compute();
-}
-
-std::unordered_map<int, nts::PIN *> nts::And::getList() const
-{
-    return _pins;
 }

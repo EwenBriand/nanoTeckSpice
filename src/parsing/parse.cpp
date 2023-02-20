@@ -45,6 +45,15 @@ bool check_path(const char *file)
     return true;
 }
 
+bool check_pin(nts::IComponent *comp, int pin)
+{
+    if (comp == nullptr)
+        return true;
+    if (pin < 0 || pin > comp->getNbPins() - 1)
+        return true;
+    return false;
+}
+
 void make_on_link(std::vector<std::string> &out,
     std::vector<std::string> &line, nts::ControlTower *tower, int &stop)
 {
@@ -53,16 +62,16 @@ void make_on_link(std::vector<std::string> &out,
     tokenize(line[0], ':', pin1);
     tokenize(line[1], ':', pin2);
 
-    if (tower->getElement(pin1[0]) == nullptr || std::stoi(pin1[1]) - 1 >= 3
-        || (std::stoi(pin1[1]) - 1 >= 2
-            && tower->getElement(pin1[0])->getType() == nts::Type::TNot)) {
+    if (check_pin(tower->getElement(pin1[0]), std::stoi(pin1[1]) - 1)
+        || check_pin(tower->getElement(pin2[0]), std::stoi(pin2[1]) - 1)) {
+        tower->_nameError = pin1[0];
+        tower->_error.type = nts::ControlTower::Error::LEX;
+        stop = 84;
+    } else if (tower->getElement(pin1[0]) == nullptr) {
         tower->_nameError = pin1[0];
         tower->_error.type = nts::ControlTower::Error::NAME;
         stop = 84;
-    } else if (tower->getElement(pin2[0]) == nullptr
-        || std::stoi(pin2[1]) - 1 >= 3
-        || (std::stoi(pin2[1]) - 1 >= 2
-            && tower->getElement(pin2[0])->getType() == nts::Type::TNot)) {
+    } else if (tower->getElement(pin2[0]) == nullptr) {
         tower->_nameError = pin2[0];
         tower->_error.type = nts::ControlTower::Error::NAME;
         stop = 84;
@@ -104,6 +113,7 @@ nts::ControlTower *parse(const char *file)
         tower->_error.type = nts::ControlTower::Error::LEX;
         return tower;
     }
+    data = remove_space(data);
 
     tokenize(data, '\n', out);
 
@@ -140,6 +150,7 @@ nts::ControlTower *parse(const char *file)
         return tower;
     else if (out.size() == 0) {
         tower->_error.type = nts::ControlTower::Error::LEX;
+
         return tower;
     }
 

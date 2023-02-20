@@ -8,16 +8,11 @@
 #ifndef CC0AAFBC_DF41_42E5_A927_E52669778601
 #define CC0AAFBC_DF41_42E5_A927_E52669778601
 
-#include <array>
-#include "../PIN/PIN.hpp"
-#include "nts.hpp"
+#include "../AComponent/AComponent.hpp"
 
 namespace nts
 {
-    class Input : virtual public nts::IComponent {
-      protected:
-        std::unordered_map<int, nts::PIN *> _pins;
-
+    class Input : virtual public nts::AComponent {
       public:
         Input(std::string name);
         ~Input();
@@ -25,8 +20,6 @@ namespace nts
         void simulate(std::size_t tick) override;
         void setLink(std::size_t pin, nts::IComponent &other,
             std::size_t otherPin) override;
-
-        std::unordered_map<int, nts::PIN *> getList() const override;
     };
 } // namespace nts
 
