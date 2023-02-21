@@ -80,7 +80,7 @@ int nts::ControlTower::addElement(std::string name, std::string type)
         return 84;
     }
 
-    _name[_value] = name;
+    _name.push_back(name);
     _value++;
     switch (typeValue) {
         case 1: _circuit[name] = new nts::Input(name); break;
@@ -115,7 +115,7 @@ nts::ControlTower::getCircuit()
     return _circuit;
 }
 
-const std::unordered_map<int, std::string> &nts::ControlTower::getName()
+std::vector<std::string> &nts::ControlTower::getName()
 {
     return _name;
 }

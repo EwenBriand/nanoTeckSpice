@@ -13,6 +13,9 @@
 namespace nts
 {
     class Output : virtual public nts::AComponent {
+      private:
+        bool _set;
+
       public:
         Output(std::string name);
         ~Output();

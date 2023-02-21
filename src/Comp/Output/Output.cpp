@@ -10,6 +10,7 @@
 nts::Output::Output(std::string name)
 {
     _type = nts::Type::output;
+    _set = false;
     _pins[0] = new nts::PIN();
     _pins[0]->setType(nts::Type::output);
     _pins[0]->setName(name);
@@ -27,17 +28,17 @@ nts::Output::~Output()
 void nts::Output::setLink(
     std::size_t pin, nts::IComponent &other, std::size_t otherPin)
 {
-    if (pin > _pins.size() || otherPin > other.getList().size())
+    if (pin > _pins.size() || otherPin > other.getList().size() || _set)
         return;
 
     std::string name = _pins[pin]->getName();
     delete _pins[pin];
     _pins[pin] = other.getList()[otherPin];
     _pins[0]->setName(name);
+    _set = true;
 }
 
 void nts::Output::simulate(std::size_t ticks)
 {
     std::cout << _pins[0] << std::endl;
-    // std::cout << (*_pins[0]) << std::endl;
 }

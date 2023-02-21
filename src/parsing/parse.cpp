@@ -5,8 +5,14 @@
 ** parse
 */
 
+#include <algorithm>
+#include <array>
+#include <functional>
+#include <iostream>
+#include <vector>
 #include "my.hpp"
 #include "nts.hpp"
+#include <string_view>
 
 void split_string(
     std::string const &str, const char delim, std::vector<std::string> &out)
@@ -168,6 +174,10 @@ nts::ControlTower *parse(const char *file)
     }
 
     make_links(out, tower);
+    std::sort(tower->getName().begin(), tower->getName().end(),
+        [](const std::string &a, const std::string &b) {
+            return a < b;
+        });
 
     return tower;
 }
