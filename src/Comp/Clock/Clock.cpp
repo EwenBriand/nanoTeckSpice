@@ -33,13 +33,15 @@ void nts::Clock::setLink(
     return;
 }
 
-void nts::Clock::simulate(std::size_t ticks)
+void nts::Clock::simulate()
 {
-    if (ticks == 0)
-        return;
-    else if (ticks % 2 == 0)
+    if (_newVal) {
+        _pins[0]->setState(_new);
+        _newVal = false;
+        // maybe delete else and make just if
+    } else if (_pins[0]->getState() == nts::Tristate::False)
         _pins[0]->setState(nts::Tristate::True);
-    else
+    else if (_pins[0]->getState() == nts::Tristate::True)
         _pins[0]->setState(nts::Tristate::False);
 }
 

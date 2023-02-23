@@ -35,5 +35,13 @@ void nts::Input::setLink(
 
 void nts::Input::simulate()
 {
+    if (_newVal) {
+        _pins[0]->setState(_new);
+        _newVal = false;
+    }
+}
+
+void nts::Input::print()
+{
     std::cout << _pins[0] << std::endl;
 }

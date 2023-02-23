@@ -25,16 +25,13 @@ nts::ControlTower::~ControlTower()
             delete it.second;
             _circuit[it.first] = nullptr;
             keys_to_remove.push_back(it.first);
-            // std::cout << "Deleting element 1: " << it.first << std::endl;
         }
-        // std::cout << "Deleting element 2: " << it.first << std::endl;
     }
 
     for (const auto &key : keys_to_remove) {
         delete _circuit[key];
         _circuit[key] = nullptr;
         _circuit.erase(key);
-        // std::cout << "Deleting element: " << key << std::endl;
     }
 
     keys_to_remove.clear();
@@ -50,14 +47,11 @@ nts::ControlTower::~ControlTower()
         delete _circuit[key];
         _circuit[key] = nullptr;
         _circuit.erase(key);
-        // std::cout << "Deleting element: " << key << std::endl;
     }
 }
 
 int nts::ControlTower::addElement(std::string name, std::string type)
 {
-    // std::cout << "Adding element: " << name << " of type: " << type
-    //           << std::endl;
     std::map<std::string, int> typeMap = {{"input", 1}, {"output", 2},
         {"and", 3}, {"or", 4}, {"xor", 5}, {"not", 6}, {"clock", 7},
         {"true", 8}, {"false", 9}, {"logger", 10}, {"4001", 11}, {"4011", 12},

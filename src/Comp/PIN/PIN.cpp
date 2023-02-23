@@ -78,7 +78,6 @@ std::ostream &operator<<(std::ostream &os, const nts::PIN *pin)
 
 nts::Tristate nts::PIN::Andop(nts::Tristate pin1, nts::Tristate pin2)
 {
-    // std::cout << pin1 << " " << pin2 << std::endl;
     if (pin1 == 0 || pin2 == 0)
         return nts::False;
     else if (pin1 == nts::True && pin2 == nts::True)
@@ -109,6 +108,7 @@ nts::Tristate nts::PIN::Xorop(nts::Tristate pin1, nts::Tristate pin2)
     return nts::False;
 }
 
+#pragma GCC diagnostic ignored "-Wunused-parameter"
 nts::Tristate nts::PIN::Invertop(nts::Tristate pin1, nts::Tristate pin2)
 {
     if (nts::Undefined == pin1)
@@ -120,14 +120,12 @@ nts::Tristate nts::PIN::Invertop(nts::Tristate pin1, nts::Tristate pin2)
 
 nts::Tristate nts::PIN::NAndop(nts::Tristate pin1, nts::Tristate pin2)
 {
-    // std::cout << pin1 << " " << pin2 << std::endl;
     nts::Tristate tmp = nts::PIN::Andop(pin1, pin2);
     return Invertop(tmp, pin1);
 }
 
 nts::Tristate nts::PIN::NOrop(nts::Tristate pin1, nts::Tristate pin2)
 {
-    // std::cout << pin1 << " " << pin2 << std::endl;
     nts::Tristate tmp = Orop(pin1, pin2);
     return Invertop(tmp, pin1);
 }

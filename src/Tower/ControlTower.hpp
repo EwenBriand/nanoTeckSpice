@@ -42,4 +42,6 @@ namespace nts
     };
 }; // namespace nts
 
+    // directive de compile
+
 #endif /* !CONTROLTOWER_HPP_ */

@@ -6,13 +6,13 @@
 */
 
 #ifndef A1F652E5_DEA3_407B_B0ED_02343818795
-    #define A1F652E5_DEA3_407B_B0ED_02343818795
+#define A1F652E5_DEA3_407B_B0ED_02343818795
 
-    #include <cstddef>
-    #include <iostream>
-    #include <string>
-    #include <vector>
-    #include <unordered_map>
+#include <cstddef>
+#include <iostream>
+#include <string>
+#include <vector>
+#include <unordered_map>
 
 namespace nts
 {
@@ -45,10 +45,9 @@ namespace nts
         bool _returned;
 
       public:
-        // virtual nts::Tristate compute(std::size_t pin) = 0;
         virtual ~IComponent() = default;
         virtual void simulate() = 0;
-        virtual void simulate(std::size_t tick) = 0;
+        virtual void setNewVal(nts::Tristate val) = 0;
         virtual void setLink(
             std::size_t pin, nts::IComponent &other, std::size_t otherPin) = 0;
         virtual std::unordered_map<int, nts::PIN *> getList() const = 0;
@@ -79,5 +78,3 @@ namespace nts
 } // namespace nts
 
 #endif /* A1F652E5_DEA3_407B_B0ED_02343818795A */
-
-// simulate make sec

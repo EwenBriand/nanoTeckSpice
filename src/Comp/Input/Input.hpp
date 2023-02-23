@@ -20,6 +20,7 @@ namespace nts
         void simulate() override;
         void setLink(std::size_t pin, nts::IComponent &other,
             std::size_t otherPin) override;
+        void print() override;
     };
 } // namespace nts
 

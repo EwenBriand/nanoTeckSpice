@@ -17,7 +17,7 @@ namespace nts
         Clock(std::string name);
         ~Clock();
 
-        void simulate(std::size_t tick) override;
+        void simulate() override;
         void setLink(std::size_t pin, nts::IComponent &other,
             std::size_t otherPin) override;
         void print() override;

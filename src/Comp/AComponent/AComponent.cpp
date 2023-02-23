@@ -62,13 +62,13 @@ void nts::AComponent::print()
     return;
 }
 
-void nts::AComponent::simulate(std::size_t tick)
-{
-    tick += 0;
-    return;
-}
-
 void nts::AComponent::simulate()
 {
     return;
+}
+
+void nts::AComponent::setNewVal(nts::Tristate val)
+{
+    _new = val;
+    _newVal = true;
 }

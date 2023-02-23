@@ -14,9 +14,15 @@
 #include <sstream>
 #include <string>
 
-void simulation(int clock, nts::ControlTower *tower)
+void simulation(nts::ControlTower *tower)
 {
     auto elem = tower->getCircuit();
+
+    for (auto it : elem)
+        if (it.second->getType() == nts::Type::input
+            || it.second->getType() == nts::Type::clock)
+            it.second->simulate();
+
     for (auto it : elem) {
         if (it.second->getType() != nts::Type::input
             && it.second->getType() != nts::Type::output
@@ -24,8 +30,6 @@ void simulation(int clock, nts::ControlTower *tower)
             && it.second->getType() != nts::Type::F
             && it.second->getType() != nts::Type::clock)
             it.second->simulate();
-        else if (it.second->getType() == nts::Type::clock)
-            it.second->simulate(clock);
     }
 }
 
@@ -37,10 +41,8 @@ void display(nts::ControlTower *tower, int clock)
     auto n = tower->getName();
     for (std::size_t name = 0; name < n.size(); ++name) {
         auto elem = circuit[n[name]];
-        if (elem->getType() == nts::Type::input) {
-            std::cout << "  " << n[name] << ": ";
-            elem->simulate();
-        } else if (elem->getType() == nts::Type::clock) {
+        if (elem->getType() == nts::Type::input
+            || elem->getType() == nts::Type::clock) {
             std::cout << "  " << n[name] << ": ";
             elem->print();
         }
@@ -70,18 +72,21 @@ void check_value(std::string &line, nts::ControlTower *tower)
 
     elem = tower->getElement(name);
 
-    if (value == "1" && elem != nullptr && elem->getType() == nts::Type::input)
-        elem->getList()[0]->setState(nts::Tristate::True);
-    else if (value == "U" && elem != nullptr
-        && elem->getType() == nts::Type::input)
-        elem->getList()[0]->setState(nts::Tristate::Undefined);
-    else if (value == "0" && elem != nullptr
-        && elem->getType() == nts::Type::input)
-        elem->getList()[0]->setState(nts::Tristate::False);
+    if (elem != nullptr
+        && (elem->getType() == nts::Type::input
+            || elem->getType() == nts::Type::clock)) {
+        if (value == "1" && elem != nullptr)
+            elem->setNewVal(nts::Tristate::True);
+        else if (value == "U" && elem != nullptr)
+            elem->setNewVal(nts::Tristate::Undefined);
+        else if (value == "0" && elem != nullptr)
+            elem->setNewVal(nts::Tristate::False);
+    }
 }
 
 static bool loopHandle;
 
+#pragma GCC diagnostic ignored "-Wunused-parameter"
 void ctrl_c_handler(int signal_number)
 {
     loopHandle = false;
@@ -93,7 +98,7 @@ int loop(int clock, nts::ControlTower *tower, sighandler_t buffer)
     buffer = std::signal(SIGINT, ctrl_c_handler);
     while (loopHandle) {
         ++clock;
-        simulation(clock, tower);
+        simulation(tower);
         display(tower, clock);
     }
     signal(SIGINT, buffer);
@@ -112,7 +117,7 @@ void execution(nts::ControlTower *tower)
             break;
         if (line == "simulate") {
             ++clock;
-            simulation(clock, tower);
+            simulation(tower);
         } else if (line == "display")
             display(tower, clock);
         else if (line == "loop")

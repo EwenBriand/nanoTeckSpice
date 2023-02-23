@@ -16,6 +16,8 @@ namespace nts
 {
     class AComponent : virtual public nts::IComponent {
       protected:
+        nts::Tristate _new;
+        bool _newVal;
         nts::Type _type;
         bool _returned;
         std::unordered_map<int, nts::PIN *> _pins;
@@ -32,7 +34,7 @@ namespace nts
         virtual void print() override;
         virtual nts::Type getType() override;
         virtual void simulate() override;
-        virtual void simulate(std::size_t tick) override;
+        void setNewVal(nts::Tristate val) override;
     };
 } // namespace nts
 

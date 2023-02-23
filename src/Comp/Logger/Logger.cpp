@@ -33,14 +33,15 @@ void nts::Logger::simulate()
         || _pins[8]->getState() != nts::True)
         return;
     std::string my_char;
-    for (int i = 0; i < 8; i++)
+    for (int i = 7; i >= 0; --i)
         if (_pins[i]->getState() != nts::Undefined)
             my_char += (_pins[i]->getState() == nts::True) ? "1" : "0";
         else
             return;
 
+    // std::cout << my_char << std::endl;
     int ch = std::stoi(my_char, 0, 2);
-    // std::cout << ch << std::endl;
+    std::cout << ch << std::endl;
     std::ofstream MyFile;
     MyFile.open("log.bin", std::ios::app);
     if (MyFile.is_open()) {
