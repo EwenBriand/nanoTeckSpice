@@ -21,7 +21,7 @@ nts::Xor::Xor()
     _deleting.push_back(2);
 }
 
-void nts::Xor::simulate(std::size_t ticks)
+void nts::Xor::simulate()
 {
     _pins[2]->setLink1(_pins[0]);
     _pins[2]->setLink2(_pins[1]);

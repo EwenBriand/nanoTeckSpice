@@ -38,7 +38,7 @@ void nts::Output::setLink(
     _set = true;
 }
 
-void nts::Output::simulate(std::size_t ticks)
+void nts::Output::simulate()
 {
     std::cout << _pins[0] << std::endl;
 }

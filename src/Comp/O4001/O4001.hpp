@@ -16,7 +16,7 @@ namespace nts
       public:
         O4001();
 
-        void simulate(std::size_t tick) override;
+        void simulate() override;
     };
 } // namespace nts
 

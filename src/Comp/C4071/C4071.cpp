@@ -33,7 +33,7 @@ nts::C4071::C4071()
         _deleting.push_back(i);
 }
 
-void nts::C4071::simulate(std::size_t ticks)
+void nts::C4071::simulate()
 {
     _pins[2]->setFunc(&nts::PIN::Orop);
     _pins[2]->setLink1(_pins[0]);

@@ -31,6 +31,8 @@ namespace nts
         int getNbPins() const;
         virtual void print() override;
         virtual nts::Type getType() override;
+        virtual void simulate() override;
+        virtual void simulate(std::size_t tick) override;
     };
 } // namespace nts
 

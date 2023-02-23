@@ -33,7 +33,7 @@ nts::C4030::C4030()
         _deleting.push_back(i);
 }
 
-void nts::C4030::simulate(std::size_t ticks)
+void nts::C4030::simulate()
 {
     _pins[2]->setFunc(&nts::PIN::Xorop);
     _pins[2]->setLink1(_pins[0]);

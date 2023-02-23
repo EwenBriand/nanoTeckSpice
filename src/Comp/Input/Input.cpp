@@ -33,7 +33,7 @@ void nts::Input::setLink(
     return;
 }
 
-void nts::Input::simulate(std::size_t ticks)
+void nts::Input::simulate()
 {
     std::cout << _pins[0] << std::endl;
 }

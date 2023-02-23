@@ -59,7 +59,7 @@ void nts::C4069::setLink(
     }
 }
 
-void nts::C4069::simulate(std::size_t ticks)
+void nts::C4069::simulate()
 {
     _pins[1]->setFunc(&nts::PIN::Invertop);
     _pins[1]->setLink1(_pins[0]);

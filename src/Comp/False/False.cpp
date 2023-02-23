@@ -34,6 +34,6 @@ void nts::AFalse::setLink(
     return;
 }
 
-void nts::AFalse::simulate(std::size_t ticks)
+void nts::AFalse::simulate()
 {
 }

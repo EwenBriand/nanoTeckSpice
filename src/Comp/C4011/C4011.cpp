@@ -33,7 +33,7 @@ nts::C4011::C4011()
         _deleting.push_back(i);
 }
 
-void nts::C4011::simulate(std::size_t ticks)
+void nts::C4011::simulate()
 {
     _pins[2]->setFunc(&nts::PIN::NAndop);
     _pins[2]->setLink1(_pins[0]);

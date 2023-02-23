@@ -60,7 +60,7 @@ bool check_pin(nts::IComponent *comp, int pin)
     return false;
 }
 
-void make_on_link(std::vector<std::string> &out,
+void make_on_link(
     std::vector<std::string> &line, nts::ControlTower *tower, int &stop)
 {
     std::vector<std::string> pin1;
@@ -68,7 +68,10 @@ void make_on_link(std::vector<std::string> &out,
     split_string(line[0], ':', pin1);
     split_string(line[1], ':', pin2);
 
-    if (tower->getElement(pin1[0]) == nullptr) {
+    if (pin1.size() != 2 || pin2.size() != 2) {
+        tower->_error.type = nts::ControlTower::Error::LEX;
+        stop = 84;
+    } else if (tower->getElement(pin1[0]) == nullptr) {
         tower->_nameError = pin1[0];
         tower->_error.type = nts::ControlTower::Error::NAME;
         stop = 84;
@@ -78,13 +81,11 @@ void make_on_link(std::vector<std::string> &out,
         stop = 84;
     } else if (check_pin(tower->getElement(pin1[0]), std::stoi(pin1[1]) - 1)
         || check_pin(tower->getElement(pin2[0]), std::stoi(pin2[1]) - 1)) {
-        tower->_nameError = pin1[0];
         tower->_error.type = nts::ControlTower::Error::LEX;
         stop = 84;
-    } else {
+    } else
         tower->getElement(pin1[0])->setLink(std::stoi(pin1[1]) - 1,
             *tower->getElement(pin2[0]), std::stoi(pin2[1]) - 1);
-    }
 }
 
 void make_links(std::vector<std::string> &out, nts::ControlTower *tower)
@@ -97,7 +98,7 @@ void make_links(std::vector<std::string> &out, nts::ControlTower *tower)
         split_string(*it, ' ', line);
 
         if (line.size() == 2 && line[0][0] != '#')
-            make_on_link(out, line, tower, stop);
+            make_on_link(line, tower, stop);
         else if (line.size() > 2) {
             tower->_error.type = nts::ControlTower::Error::LEX;
             stop = 84;

@@ -34,7 +34,7 @@ nts::C4081::C4081()
         _deleting.push_back(i);
 }
 
-void nts::C4081::simulate(std::size_t ticks)
+void nts::C4081::simulate()
 {
     _pins[2]->setFunc(&nts::PIN::Andop);
     _pins[2]->setLink1(_pins[0]);

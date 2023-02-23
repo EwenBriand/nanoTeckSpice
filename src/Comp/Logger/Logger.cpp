@@ -26,7 +26,7 @@ nts::Logger::Logger()
         _deleting.push_back(i);
 }
 
-void nts::Logger::simulate(std::size_t ticks)
+void nts::Logger::simulate()
 {
     // std::cout << _pins[9] << "  " << _pins[8] << std::endl;
     if (_pins[9]->getState() != nts::False

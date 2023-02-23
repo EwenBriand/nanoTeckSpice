@@ -61,3 +61,14 @@ void nts::AComponent::print()
 {
     return;
 }
+
+void nts::AComponent::simulate(std::size_t tick)
+{
+    tick += 0;
+    return;
+}
+
+void nts::AComponent::simulate()
+{
+    return;
+}

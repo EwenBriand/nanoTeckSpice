@@ -16,7 +16,7 @@ namespace nts
       public:
         Logger();
 
-        void simulate(std::size_t tick) override;
+        void simulate() override;
     };
 } // namespace nts
 

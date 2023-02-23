@@ -33,7 +33,7 @@ nts::O4001::O4001()
         _deleting.push_back(i);
 }
 
-void nts::O4001::simulate(std::size_t ticks)
+void nts::O4001::simulate()
 {
     _pins[2]->setFunc(&nts::PIN::NOrop);
     _pins[2]->setLink1(_pins[0]);

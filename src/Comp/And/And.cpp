@@ -21,7 +21,7 @@ nts::And::And()
     _deleting.push_back(2);
 }
 
-void nts::And::simulate(std::size_t ticks)
+void nts::And::simulate()
 {
     _pins[2]->setLink1(_pins[0]);
     _pins[2]->setLink2(_pins[1]);

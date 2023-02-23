@@ -15,7 +15,7 @@ namespace nts
       public:
         Invert();
 
-        void simulate(std::size_t tick) override;
+        void simulate() override;
     };
 } // namespace nts
 

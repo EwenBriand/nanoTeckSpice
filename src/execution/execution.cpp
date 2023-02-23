@@ -14,8 +14,6 @@
 #include <sstream>
 #include <string>
 
-// creat simulate for clock, it change the value of the input
-
 void simulation(int clock, nts::ControlTower *tower)
 {
     auto elem = tower->getCircuit();
@@ -23,7 +21,10 @@ void simulation(int clock, nts::ControlTower *tower)
         if (it.second->getType() != nts::Type::input
             && it.second->getType() != nts::Type::output
             && it.second->getType() != nts::Type::T
-            && it.second->getType() != nts::Type::F)
+            && it.second->getType() != nts::Type::F
+            && it.second->getType() != nts::Type::clock)
+            it.second->simulate();
+        else if (it.second->getType() == nts::Type::clock)
             it.second->simulate(clock);
     }
 }
@@ -34,22 +35,22 @@ void display(nts::ControlTower *tower, int clock)
     std::cout << "input(s):" << std::endl;
     auto circuit = tower->getCircuit();
     auto n = tower->getName();
-    for (auto name = 0; name < n.size(); ++name) {
+    for (std::size_t name = 0; name < n.size(); ++name) {
         auto elem = circuit[n[name]];
         if (elem->getType() == nts::Type::input) {
             std::cout << "  " << n[name] << ": ";
-            elem->simulate(clock);
+            elem->simulate();
         } else if (elem->getType() == nts::Type::clock) {
             std::cout << "  " << n[name] << ": ";
             elem->print();
         }
     }
     std::cout << "output(s):" << std::endl;
-    for (auto name = 0; name < n.size(); ++name) {
+    for (std::size_t name = 0; name < n.size(); ++name) {
         auto elem = circuit[n[name]];
         if (elem->getType() == nts::Type::output) {
             std::cout << "  " << n[name] << ": ";
-            elem->simulate(1);
+            elem->simulate();
         }
     }
 }
