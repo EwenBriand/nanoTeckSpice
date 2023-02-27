@@ -22,9 +22,6 @@ nts::AComponent::~AComponent()
 void nts::AComponent::setLink(
     std::size_t pin, nts::IComponent &other, std::size_t otherPin)
 {
-    // pin == position de ton pin dans _pins
-    // other == le componnent auquel tu veux le lier
-    // otherPin == la position du pin dans other
     if (pin > _pins.size() || otherPin > other.getList().size())
         return;
 
