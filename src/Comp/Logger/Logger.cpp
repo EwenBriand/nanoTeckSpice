@@ -41,7 +41,7 @@ void nts::Logger::simulate()
 
     // std::cout << my_char << std::endl;
     int ch = std::stoi(my_char, 0, 2);
-    std::cout << ch << std::endl;
+    // std::cout << ch << std::endl;
     std::ofstream MyFile;
     MyFile.open("log.bin", std::ios::app);
     if (MyFile.is_open()) {
